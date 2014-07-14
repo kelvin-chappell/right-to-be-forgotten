@@ -21,7 +21,10 @@ class Googler(host: String) extends WebBrowser {
 
   def isBlocked(terms: String, articleUrl: String): Boolean = {
     val results = getResults(terms +" "+ articleUrl)
-    !results.contains(articleUrl)
+    println(s"looking for <$articleUrl> in (${results.mkString(", ")})")
+    val blocked = !results.contains(articleUrl)
+    println(s"is blocked: $blocked")
+    blocked
   }
 
   private def getResults(terms: String): List[String] = {

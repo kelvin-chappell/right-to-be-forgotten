@@ -11,15 +11,16 @@ class Worker(googler: Googler) {
 
   type ArticleURL = String
   type SearchTerm = String
+  type Blocked = Boolean
 
-  def streamOfBlockedNames(url: ArticleURL, names: Stream[String]): Option[String] = {
-    names.filter(name => googler.isBlocked(url, name)).headOption
+  private def firstBlockedName(url: ArticleURL, names: Stream[SearchTerm]): Stream[(SearchTerm, Blocked)] = {
+    names.map(name => (name, googler.isBlocked(name, url)))
   }
 
-  def getBlockedTerms(urls: List[String]): Stream[(ArticleURL,Option[SearchTerm])] = {
+  def getBlockedTerms(urls: List[ArticleURL]): Stream[Stream[(SearchTerm, Blocked)]] = {
     val urlText = urls.toStream.map(url => (url, Fetcher.fetchTextFromURL(url)))
     val names = urlText.map { case (url, body) => (url, NameExtractor(body)) }
-    names.map { case (url, names) => (url, streamOfBlockedNames(url, names.toStream))}
+    names.map { case (url, names) => firstBlockedName(url, names.toStream)}
   }
 
 }
