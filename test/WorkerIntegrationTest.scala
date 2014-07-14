@@ -17,13 +17,12 @@ class WorkerIntegrationTest extends FlatSpec with Matchers {
 
     val googler = new Googler(GooglerTest.getUrl)
     val blocked = new Worker(googler).getBlockedTerms(List(urlToTest)).toList
-    googler.quit
     blocked.length should be (1)
     val first = blocked(0)
     first._1 should be (urlToTest)
     val blockedTerms = first._2
-    blockedTerms.length should be (1)
-    blockedTerms(0) should be ("Julien Berissi")
+    blockedTerms.get should be ("Julien Berissi")
+    googler.quit // TODO in teardown
 
   }
 
