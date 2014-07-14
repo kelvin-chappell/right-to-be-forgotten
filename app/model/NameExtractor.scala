@@ -3,9 +3,8 @@ package model
 object NameExtractor {
 
   def apply(body: String): Seq[String] = {
-    //" ".r.findAllIn(body)
+    val regex = """\b[A-Z][a-z]+\s+\b[A-Z][A-Za-z]+""".r
 
-    Nil
+    regex.findAllIn(body).toSeq
   }
-
 }
