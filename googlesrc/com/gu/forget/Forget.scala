@@ -21,13 +21,14 @@ class Forget extends WebBrowser {
   }
 
   def isBlocked(terms: String, articleUrl: String): Boolean = {
-    val results = getResults(terms)
+    val results = getResults(terms +" "+ articleUrl)
     !results.contains(articleUrl)
   }
 
   private def getResults(terms: String): List[String] = {
-    go to (host+terms.replaceAll(" ", "+") )
+    go to (host+terms.replaceAll(" ", "+"))
     println(s"title: $pageTitle")
+    println(s"currentUrl: $currentUrl")
     val results = findAll(xpath("//li[@class='g']//h3[@class='r']/a")).toList
     println("length: " + results.length)
     val urls = results.map(getUrlFromResult)
