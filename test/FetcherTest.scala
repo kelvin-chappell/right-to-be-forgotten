@@ -1,3 +1,4 @@
+import fetcher.Fetcher
 import org.scalatest.{FlatSpec, Matchers}
 
 /**
