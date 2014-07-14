@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import org.scalatest.selenium.WebBrowser
 
-class Fetcher extends WebBrowser {
+object Fetcher extends WebBrowser {
 
   implicit val webDriver: WebDriver = new HtmlUnitDriver
 
