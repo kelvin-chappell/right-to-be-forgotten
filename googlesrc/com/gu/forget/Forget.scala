@@ -15,17 +15,22 @@ class Forget extends WebBrowser {
   val host = "file:///Users/jduffell/ws/right-to-be-forgotten/googlesrc/cheeseSearch.html"
 
   private def getUrlFromResult(element: Element) = {
-    element.attribute("data-href").orElse(element.attribute("href"))
+    element.attribute("data-href").orElse(element.attribute("href")).get
   }
 
-  def isBlocked(terms: String): Boolean = {
+  def isBlocked(terms: String, articleUrl: String): Boolean = {
+    val results = getResults(terms)
+    !terms.contains(articleUrl)
+  }
+
+  def getResults(terms: String): List[String] = {
     go to (host+terms.replaceAll(" ", "+") )
     println(s"title: $pageTitle")
     val results = findAll(xpath("//li[@class='g']//h3[@class='r']/a")).toList
     println("length: " + results.length)
     val urls = results.map(getUrlFromResult)
     println("urls: " + urls)
-    false
+    urls
   }
 
   def quit = {
