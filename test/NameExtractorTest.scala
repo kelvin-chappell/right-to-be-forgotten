@@ -11,7 +11,7 @@ import scala.io.Source
 class NameExtractorTest extends FlatSpec with Matchers {
 
 //  val host = "file:///Users/jduffell/ws/right-to-be-forgotten/googlesrc/cheeseSearch.html?q="
-  def body = Source.fromURL(getClass.getResource("/guardianArticle.html")).getLines().mkString
+  def body = Source.fromURL(getClass.getResource("/bodyText.txt")).getLines().mkString
 
   "googler" should "work right" in {
 
