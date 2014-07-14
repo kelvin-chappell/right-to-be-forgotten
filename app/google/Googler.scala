@@ -1,5 +1,7 @@
 package google
 
+import java.net.URLEncoder
+
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.scalatest.selenium.WebBrowser
@@ -23,7 +25,7 @@ class Forget(host: String) extends WebBrowser {
   }
 
   private def getResults(terms: String): List[String] = {
-    go to (host+terms.replaceAll(" ", "+"))
+    go to (host+URLEncoder.encode(terms, "UTF-8"))
     println(s"title: $pageTitle")
     println(s"currentUrl: $currentUrl")
     val results = findAll(xpath("//li[@class='g']//h3[@class='r']/a")).toList
