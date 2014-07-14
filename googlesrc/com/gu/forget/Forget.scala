@@ -20,7 +20,7 @@ class Forget extends WebBrowser {
 
   def isBlocked(terms: String, articleUrl: String): Boolean = {
     val results = getResults(terms)
-    !terms.contains(articleUrl)
+    !results.contains(articleUrl)
   }
 
   def getResults(terms: String): List[String] = {
@@ -43,8 +43,11 @@ object Forget {
 
   def main(args: Array[String]) {
     val forget = new Forget()
-      forget.isBlocked("")
+    val cheeseBlocked = forget.isBlocked("", "http://www.cheese.com/")
+    val baddieBlocked = forget.isBlocked("", "http://www.baddie.com/")
     forget.quit
+    println(s"cheeseBlocked $cheeseBlocked")
+    println(s"baddieBlocked $baddieBlocked")
   }
 
 }
