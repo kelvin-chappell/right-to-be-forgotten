@@ -9,15 +9,18 @@ import org.scalatest.{FlatSpec, Matchers}
 class FetcherTest extends FlatSpec with Matchers {
 
 //  val host = "file:///Users/jduffell/ws/right-to-be-forgotten/googlesrc/cheeseSearch.html?q="
-  def getUrl = getClass.getResource("/guardianArticle.html").toString + "?q="
-
   "googler" should "work right" in {
 
-    val fetcher = new Fetcher()
-    val body = fetcher.fetchTextFromURL(getUrl)
+    val fetcher = Fetcher
+    val body = fetcher.fetchTextFromURL(FetcherTest.getUrl)
     println("text is: " + body)
     body should not be ("")
 
   }
+
+}
+object FetcherTest {
+
+  def getUrl = getClass.getResource("/guardianArticle.html").toString + "?q="
 
 }

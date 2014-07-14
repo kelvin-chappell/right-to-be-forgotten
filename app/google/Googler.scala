@@ -11,7 +11,7 @@ import org.scalatest.selenium.WebBrowser
  *
  * Just call isBlocked
  */
-class Forget(host: String) extends WebBrowser {
+class Googler(host: String) extends WebBrowser {
 
   implicit val webDriver: WebDriver = new ChromeDriver
 
@@ -41,7 +41,7 @@ class Forget(host: String) extends WebBrowser {
 
 }
 
-object Forget {
+object Googler {
   val host = "https://www.google.co.uk/search?btnG=1&gws_rd=ssl&q="
-  def apply = new Forget(host)
+  def apply() = new Googler(host)
 }
