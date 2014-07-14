@@ -1,8 +1,12 @@
 package fetcher
 
-/**
- * Created by ggoldberg on 14/07/2014.
- */
-class Fetcher {
+import org.scalatest.selenium.WebBrowser
+
+class Fetcher extends WebBrowser {
+
+  def fetchTextFromURL(URL: String): String = {
+    go to (URL)
+    tagName("body").webElement.getText
+  }
 
 }
