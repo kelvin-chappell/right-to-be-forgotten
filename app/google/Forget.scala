@@ -1,4 +1,4 @@
-package com.gu.forget
+package google
 
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
@@ -9,12 +9,9 @@ import org.scalatest.selenium.WebBrowser
  *
  * Just call isBlocked
  */
-class Forget extends WebBrowser {
+class Forget(host: String) extends WebBrowser {
 
   implicit val webDriver: WebDriver = new ChromeDriver
-
-//  val host = "https://www.google.co.uk/search?btnG=1&gws_rd=ssl&q="
-  val host = "file:///Users/jduffell/ws/right-to-be-forgotten/googlesrc/cheeseSearch.html?q="
 
   private def getUrlFromResult(element: Element) = {
     element.attribute("data-href").orElse(element.attribute("href")).get
@@ -43,14 +40,6 @@ class Forget extends WebBrowser {
 }
 
 object Forget {
-
-  def main(args: Array[String]) {
-    val forget = new Forget()
-    val cheeseBlocked = forget.isBlocked("cheese", "http://www.cheese.com/")
-    val baddieBlocked = forget.isBlocked("cheese", "http://www.baddie.com/")
-    forget.quit
-    println(s"cheeseBlocked $cheeseBlocked")
-    println(s"baddieBlocked $baddieBlocked")
-  }
-
+  val host = "https://www.google.co.uk/search?btnG=1&gws_rd=ssl&q="
+  def apply = new Forget(host)
 }
