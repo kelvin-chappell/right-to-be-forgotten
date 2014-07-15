@@ -17,20 +17,7 @@ class WorkerIntegrationTest extends FlatSpec with Matchers {
     val blocked = new Worker(googler).getBlockedTerms(List(urlToTest)).toList
     blocked.length should be (1)
     val first = blocked(0)
-    first.find(_._2).get._1 should be ("""Advertisement
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |
-                                         |The""")
+    first.find(_._2).get._1 should be ("Michael Gove")
     googler.quit // TODO in teardown
 
   }
