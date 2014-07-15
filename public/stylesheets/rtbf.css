@@ -2,13 +2,13 @@
  * Right to be forgotten v1.0 (G Lockett)
  */
 
-.notblocked{
+.blocked{
     font-weight: bold;
     color: #942192
     font-size: 16px;
 }
 
-.blocked {
+.notblocked {
     color: #8ea0a8;
     font-style: italic;
 }

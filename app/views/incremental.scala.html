@@ -29,12 +29,12 @@ Stream[Stream[(worker.Worker.SearchTerm, worker.Worker.Blocked)]])
     @for(searchTermStatus <- urlInfo) {
 
     @{if (searchTermStatus._2){
-    <li class="list-group-item blocked">The name that was blocked is:
+    <li class="blocked">The name that was blocked is:
         {searchTermStatus._1}</li>
     }
     else
     {
-    <li class="list-group-item notblocked">wasn't blocked:
+    <li class="notblocked">wasn't blocked:
         {searchTermStatus._1}</li>
     }
     }
