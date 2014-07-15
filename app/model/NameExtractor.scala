@@ -1,10 +1,33 @@
 package model
 
+import java.io.FileInputStream
+
+import scala.io.Source
+
 object NameExtractor {
 
-  def apply(body: String): Seq[String] = {
-    val regex = """\b[A-Z][a-z]+\s+\b[A-Z][A-Za-z]+""".r
+  val regex = """\b[A-Z][a-z]+\s+\b[A-Z][A-Za-z]+""".r
 
-    regex.findAllIn(body).toSeq
+  val common = Set("A", "As", "The")
+
+  lazy val firstNames = Source.fromFile("conf/firstNames.csv").getLines.toSeq.tail.toSet
+  lazy val lastNames = Source.fromFile("conf/lastNames.csv").getLines.toSeq.tail.toSet
+
+  def apply(body: String): Seq[String] = {
+
+    val firstPass = regex.findAllIn(body).toSeq
+
+    val secondPass = firstPass filterNot { name =>
+      val start = name.split("\\b").head
+      common contains start
+    }
+
+    val (recognisedNames, unrecognisedNames) = secondPass partition { name =>
+      val start = name.split("\\s").head
+      val lastName = name.split("\\s").last
+      lastNames.contains(lastName) && firstNames.contains(start)
+    }
+
+    recognisedNames ++ unrecognisedNames
   }
 }
