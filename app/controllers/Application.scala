@@ -8,13 +8,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object Application extends Controller {
 
-  val googler = Googler.apply()
-
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
   }
 
   def checkUrl(url: String) = Action.async {
+    val googler = Googler.apply()// FIXME never closed!!
+
     WS.url(url).get() map { response =>
       val body = response.body
       val names = NameExtractor(body)

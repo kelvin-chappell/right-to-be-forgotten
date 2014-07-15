@@ -6,8 +6,6 @@ import worker.Worker
 
 object Incremental extends Controller {
 
-  val googler = Googler.apply()
-
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
   }
