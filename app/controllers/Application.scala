@@ -2,6 +2,8 @@ package controllers
 
 import model.NameExtractor
 import play.api.mvc._
+import play.api.libs.ws.WS
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Application extends Controller {
 
@@ -10,8 +12,12 @@ object Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
-  def checkUrl(url: String) = Action {
-    
+  def checkUrl(url: String) = Action.async {
+    WS.url(url).get() map { response =>
+      val body = response.body
+      val names = NameExtractor(body)
+      Ok("Names to process: \n" + names.mkString(";"))
+    }
   }
 
   val testBody = """
