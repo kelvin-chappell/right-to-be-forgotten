@@ -36,3 +36,14 @@ class WorkerIntegrationTest extends FlatSpec with Matchers {
 //  }
 
 }
+object WorkerIntegrationTest {
+  def main(args: Array[String]) {
+
+        val urlToTest = "http://www.theguardian.com/artanddesign/2011/aug/30/paris-post-it-wars-french"
+
+        val googler = Googler()
+
+    val blocked = new Worker(googler).getBlockedTerms(List(urlToTest))
+    blocked.foreach(a => a.foreach(b => println(s"result: $b")))
+  }
+}
