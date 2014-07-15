@@ -40,8 +40,9 @@ object WorkerIntegrationTest {
   def main(args: Array[String]) {
 
         val urlToTest = "http://www.theguardian.com/artanddesign/2011/aug/30/paris-post-it-wars-french"
-
-    val blocked = new Worker(Googler()).getBlockedTerms(List(urlToTest))
+val googler = Googler()
+    val blocked = new Worker(googler).getBlockedTerms(List(urlToTest))
     blocked.foreach(a => a.foreach(b => println(s"result: $b")))
+    googler.quit
   }
 }
