@@ -15,7 +15,7 @@ object Incremental extends Controller {
   def checkUrl(url: String) = Action {
     val googler = Googler()
     val blocked = new Worker(googler).getBlockedTerms(List(url))
-    val result = Ok(views.html.incremental(blocked))
+    val result = Ok(views.html.incremental(url, blocked))
     googler.quit
     result
   }
