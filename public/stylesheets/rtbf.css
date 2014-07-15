@@ -4,11 +4,12 @@
 
 .notblocked{
     font-weight: bold;
-    font-size: 14px;
+    color: #942192
+    font-size: 16px;
 }
 
 .blocked {
-    color: #333;
+    color: #8ea0a8;
     font-style: italic;
 }
 
