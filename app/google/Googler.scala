@@ -27,11 +27,11 @@ class Googler(host: String) extends WebBrowser {
     blocked
   }
 
-  private def getResults(terms: String): List[String] = {
+  def getResults(terms: String): List[String] = {
     go to (host+URLEncoder.encode(terms, "UTF-8"))
     println(s"title: $pageTitle")
     println(s"currentUrl: $currentUrl")
-    val results = findAll(xpath("//li[@class='g']//h3[@class='r']/a")).toList
+    val results = findAll(xpath("//li[@class='g']//a")).toList
     println("length: " + results.length)
     val urls = results.map(getUrlFromResult)
     println("urls: " + urls)

@@ -10,6 +10,14 @@ class GooglerTest extends FlatSpec with Matchers {
 
 //  val host = "file:///Users/jduffell/ws/right-to-be-forgotten/googlesrc/cheeseSearch.html?q="
 
+  "googler" should "be able to ahnbdle the cheese.com" in {
+
+    val forget = new Googler(GooglerTest.getUrl)
+    val newsSite = forget.getResults( "")
+    forget.quit
+    newsSite should contain ("http://en.wikipedia.org/wiki/Cheese")
+
+  }
   "googler" should "work right" in {
 
     val forget = new Googler(GooglerTest.getUrl)
@@ -26,8 +34,25 @@ class GooglerTest extends FlatSpec with Matchers {
     baddieBlocked should be (true)
 
   }
+  "googler" should "be able to ahnbdle the news section" in {
+
+    val forget = new Googler(GooglerTest.getUrlNewsSection)
+    val newsSite = forget.getResults( "")
+    forget.quit
+    newsSite should contain ("http://www.theguardian.com/politics/blog/2014/jul/15/reshuffle-2014-all-the-latest-developments-plus-reaction-and-analysis-politics-live-blog")
+
+  }
+  "googler" should "be able to ahnbdle the news section end to end" in {
+
+    val forget = new Googler(GooglerTest.getUrlNewsSection)
+    val newsSite = forget.isBlocked("cheese", "http://www.theguardian.com/politics/blog/2014/jul/15/reshuffle-2014-all-the-latest-developments-plus-reaction-and-analysis-politics-live-blog")
+    forget.quit
+    newsSite should be (false)
+
+  }
 }
 object GooglerTest {
 
   def getUrl = getClass.getResource("/cheeseSearch.html").toString + "?q="
+  def getUrlNewsSection = getClass.getResource("/googleWithNewsSection.html").toString + "?q="
 }
