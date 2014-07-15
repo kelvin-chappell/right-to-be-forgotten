@@ -1,13 +1,38 @@
 @(url: worker.Worker.ArticleURL, results: Stream[Stream[(worker.Worker.SearchTerm, worker.Worker.Blocked)]])
+<HTML>
+<head>
+    <title>Results</title>
+    <link rel='shortcut icon' type='images/png' href='@routes.Assets.at("images/favicon.ico")'>
 
+    <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.css")'>
+    <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
+    <link rel='stylesheet' href='@routes.Assets.at("stylesheets/rtbf.css")'>
 
+    <script src="@routes.Assets.at("javascripts/jquery.js")"></script>
+    <script src="@routes.Assets.at("javascripts/jquery-ui.js")"></script>
+    <script src="@routes.Assets.at("javascripts/dropdown.js")"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.js")"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/accordion.js")"></script>
 
+</head>
+
+<body>
+<h1>Results</h1>
                     <ul class="list-group">
                         @for(urlInfo <- results) {
-                        next url...
+                        I have searched high and low and found...
                         @for(searchTermStatus <- urlInfo) {
-                        <li class="list-group-item">Name: @searchTermStatus._1 (isBlocked?: @searchTermStatus._2)</li>
+
+                        @{if (searchTermStatus._2)
+                        <li class="list-group-item notblocked">Name: @searchTermStatus._1</li>
+                        else
+                        <li class="list-group-item blocked">Name: @searchTermStatus._1</li>
+                        }
+
+
                         }
                         }
                         End of results.
                     </ul>
+</HTML>
