@@ -28,6 +28,6 @@ object NameExtractor {
       lastNames.contains(lastName) && firstNames.contains(start)
     }
 
-    recognisedNames ++ unrecognisedNames
+    (recognisedNames ++ unrecognisedNames).distinct
   }
 }
