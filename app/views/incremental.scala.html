@@ -22,25 +22,26 @@ Stream[Stream[(worker.Worker.SearchTerm, worker.Worker.Blocked)]])
 </head>
 
 <body>
-<h1>Results</h1>
+<h2>Results</h2>
 <ul class="list-group">
     @for(urlInfo <- results) {
     I have searched high and low and found...
     @for(searchTermStatus <- urlInfo) {
 
     @{if (searchTermStatus._2){
-    <li class="list-group-item blocked">The name that was blocked is:
+    <li class="list-group-item blocked">The likely complainant:
         {searchTermStatus._1}</li>
     }
     else
     {
-    <li class="list-group-item notblocked">wasn't blocked:
+    <li class="list-group-item notblocked">I also looked for these terms that weren't blocked:
         {searchTermStatus._1}</li>
     }
     }
 
     }
     }
-    End of results.
+
 </ul>
+</body>
 </HTML>
