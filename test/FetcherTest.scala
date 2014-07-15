@@ -9,7 +9,7 @@ import org.scalatest.{FlatSpec, Matchers}
 class FetcherTest extends FlatSpec with Matchers {
 
 //  val host = "file:///Users/jduffell/ws/right-to-be-forgotten/googlesrc/cheeseSearch.html?q="
-  "googler" should "work right" in {
+  "fetcher" should "work right" in {
 
     val fetcher = Fetcher
     val body = fetcher.fetchTextFromURL(FetcherTest.getUrl)
@@ -21,6 +21,6 @@ class FetcherTest extends FlatSpec with Matchers {
 }
 object FetcherTest {
 
-  def getUrl = getClass.getResource("/guardianArticle.html").toString + "?q="
+  def getUrl = getClass.getResource("/gregorySim.html").toString + "?q="
 
 }
