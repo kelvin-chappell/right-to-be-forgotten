@@ -34,9 +34,9 @@
                 <h2>Right to be forgotten toolset</h2>
                 <div id="item1">
                     <p>Enter the URL of the article you wish to search on:</p>
-                    <form class="search">
+                    <form class="search" action="/checkUrl" method="get">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search for article">
+                            <input type="text" name="url" class="form-control" placeholder="Search for article">
                             <button type="submit" class="btn btn-default active">Submit</button>
                         </div>
                         <h3>Search in progress</h3>
