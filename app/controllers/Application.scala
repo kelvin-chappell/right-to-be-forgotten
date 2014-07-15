@@ -1,7 +1,6 @@
 package controllers
 
 import model.NameExtractor
-import play.api._
 import play.api.mvc._
 
 object Application extends Controller {
@@ -9,6 +8,10 @@ object Application extends Controller {
   def index = Action {
     NameExtractor(testBody) foreach println
     Ok(views.html.index("Your new application is ready."))
+  }
+
+  def checkUrl(url: String) = Action {
+    
   }
 
   val testBody = """
