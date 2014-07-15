@@ -1,33 +1,51 @@
 package model
 
-import java.io.FileInputStream
+import java.util.Properties
 
-import scala.io.Source
+import edu.stanford.nlp.ling.CoreAnnotations.{SentencesAnnotation, TokensAnnotation}
+import edu.stanford.nlp.pipeline.{Annotation, StanfordCoreNLP}
+
+import scala.collection.JavaConversions._
+import scala.collection.mutable
 
 object NameExtractor {
 
-  val regex = """\b[A-Z][a-z]+\s+\b[A-Z][A-Za-z]+""".r
-
-  val common = Set("A", "As", "The")
-
-  lazy val firstNames = Source.fromFile("conf/firstNames.csv").getLines.toSeq.tail.toSet
-  lazy val lastNames = Source.fromFile("conf/lastNames.csv").getLines.toSeq.tail.toSet
+  val pipeline = {
+    val props = new Properties()
+    props.put("annotators", "tokenize, ssplit, pos, lemma, ner")
+    new StanfordCoreNLP(props)
+  }
 
   def apply(body: String): Seq[String] = {
 
-    val firstPass = regex.findAllIn(body).toSeq
+    val document = new Annotation(body)
+    pipeline.annotate(document)
 
-    val secondPass = firstPass filterNot { name =>
-      val start = name.split("\\b").head
-      common contains start
+    var names = mutable.Seq[String]()
+
+    val sentences = document.get(classOf[SentencesAnnotation])
+
+    var inName = false
+
+    sentences foreach { sentence =>
+      val tokens = sentence.get(classOf[TokensAnnotation])
+      tokens foreach { token =>
+
+        println(token.ner() + ": " + token.value())
+
+        if (token.ner() == "PERSON") {
+          if (inName) {
+            names.update(names.size - 1, names(names.size - 1) + " " + token.value())
+          } else {
+            names = names :+ token.value()
+            inName = true
+          }
+        } else {
+          inName = false
+        }
+      }
     }
 
-    val (recognisedNames, unrecognisedNames) = secondPass partition { name =>
-      val start = name.split("\\s").head
-      val lastName = name.split("\\s").last
-      lastNames.contains(lastName) && firstNames.contains(start)
-    }
-
-    (recognisedNames ++ unrecognisedNames).distinct
+    names.distinct
   }
 }
