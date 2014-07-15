@@ -1,11 +1,15 @@
-@(url: worker.Worker.ArticleURL, results: Stream[Stream[(worker.Worker.SearchTerm, worker.Worker.Blocked)]])
+@(url: worker.Worker.ArticleURL, results:
+Stream[Stream[(worker.Worker.SearchTerm, worker.Worker.Blocked)]])
 <HTML>
 <head>
     <title>Results</title>
-    <link rel='shortcut icon' type='images/png' href='@routes.Assets.at("images/favicon.ico")'>
+    <link rel='shortcut icon' type='images/png'
+          href='@routes.Assets.at("images/favicon.ico")'>
 
-    <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.css")'>
-    <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
+    <link rel='stylesheet'
+          href='@routes.Assets.at("stylesheets/bootstrap.css")'>
+    <link rel='stylesheet'
+          href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
     <link rel='stylesheet' href='@routes.Assets.at("stylesheets/rtbf.css")'>
 
     <script src="@routes.Assets.at("javascripts/jquery.js")"></script>
@@ -19,20 +23,24 @@
 
 <body>
 <h1>Results</h1>
-                    <ul class="list-group">
-                        @for(urlInfo <- results) {
-                        I have searched high and low and found...
-                        @for(searchTermStatus <- urlInfo) {
+<ul class="list-group">
+    @for(urlInfo <- results) {
+    I have searched high and low and found...
+    @for(searchTermStatus <- urlInfo) {
 
-                        @{if (searchTermStatus._2)
-                        <li class="list-group-item notblocked">Name: @searchTermStatus._1</li>
-                        else
-                        <li class="list-group-item blocked">Name: @searchTermStatus._1</li>
-                        }
+    @{if (searchTermStatus._2){
+    <li class="list-group-item blocked">The name that was blocked is:
+        {searchTermStatus._1}</li>
+    }
+    else
+    {
+    <li class="list-group-item notblocked">wasn't blocked:
+        {searchTermStatus._1}</li>
+    }
+    }
 
-
-                        }
-                        }
-                        End of results.
-                    </ul>
+    }
+    }
+    End of results.
+</ul>
 </HTML>
