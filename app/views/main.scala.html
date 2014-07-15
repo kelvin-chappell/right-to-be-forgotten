@@ -9,7 +9,7 @@
             <!--<![endif]-->
         <head>
             <title>@title</title>
-            <link rel='shortcut icon' type='images/png' href='@routes.Assets.at("images/favicon.ico.pxm")'>
+            <link rel='shortcut icon' type='images/png' href='@routes.Assets.at("images/favicon.ico")'>
 
             <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.css")'>
             <link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap.min.css")'>
@@ -33,8 +33,8 @@
             <content>
                 <h2>Right to be forgotten toolset</h2>
                 <div id="item1">
-                    <p>Enter the URL of the article you wish to search on:</p>
                     <form class="search" action="/checkUrl" method="get">
+                        <p>Enter the URL of the article you wish to search on:</p>
                         <div class="form-group">
                             <input type="text" name="url" class="form-control" placeholder="Search for article">
                             <button type="submit" class="btn btn-default active">Submit</button>
@@ -44,9 +44,9 @@
                             <div class="progress-bar" style="width: 0%;"></div>
                         </div>
                     </form>
-                    <h2>List of names of those that have the right to be forgotten:</h2>
-                    <ul class="list-group">Names:
-                        <li class="list-group-item">Jane McDonald</li>
+                    <h2>Article not found for likely complainant:</h2>
+                    <ul class="list-group">
+                        <li class="list-group-item">Old MacDonald <a href="http://www.google.com"> http://www.theguardian.com/artanddesign/2011/aug/30/paris-post-it-wars-french</a></li>
                         <li class="list-group-item">Doctor Foster</li>
                         <li class="list-group-item">Mary Quant</li>
                         <li class="list-group-item">John Duffell</li>
