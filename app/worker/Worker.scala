@@ -3,15 +3,12 @@ package worker
 import fetcher.Fetcher
 import google.Googler
 import model.NameExtractor
+import worker.Worker.{Blocked, SearchTerm, ArticleURL}
 
 /**
  * Created by jduffell on 14/07/2014.
  */
 class Worker(googler: Googler) {
-
-  type ArticleURL = String
-  type SearchTerm = String
-  type Blocked = Boolean
 
   private def firstBlockedName(url: ArticleURL, names: Stream[SearchTerm]): Stream[(SearchTerm, Blocked)] = {
     val streamOfBlockages = names.map(name => (name, googler.isBlocked(name, url)))
@@ -26,6 +23,10 @@ class Worker(googler: Googler) {
 
 }
 object Worker {
+  type ArticleURL = String
+  type SearchTerm = String
+  type Blocked = Boolean
+
   def apply = {
     new Worker(Googler())
   }

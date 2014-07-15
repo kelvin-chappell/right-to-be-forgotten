@@ -1,0 +1,13 @@
+@(results: Stream[Stream[(worker.Worker.SearchTerm, worker.Worker.Blocked)]])
+
+
+
+                    <ul>
+                        @for(urlInfo <- results) {
+                        next url...
+                        @for(searchTermStatus <- urlInfo) {
+                        <li>term: @searchTermStatus._1 (isBlocked?: @searchTermStatus._2)</li>
+                        }
+                        }
+                        finished!
+                    </ul>

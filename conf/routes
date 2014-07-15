@@ -11,3 +11,4 @@ GET        /checkUrl            controllers.Application.checkUrl(url: String)
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
 
 
+GET /incremental controllers.Incremental.checkUrl(url: String)
