@@ -12,7 +12,7 @@ class Worker(googler: Googler) {
 
   private def firstBlockedName(url: ArticleURL, names: Stream[SearchTerm]): Stream[(SearchTerm, Blocked)] = {
     val streamOfBlockages = names.map(name => (name, googler.isBlocked(name, url)))
-      streamOfBlockages.takeWhile(_._2 == false).append(streamOfBlockages.find(_._2 == true))
+      streamOfBlockages//.takeWhile(_._2 == false).append(streamOfBlockages.find(_._2 == true))
   }
 
   def getBlockedTerms(urls: List[ArticleURL]): Stream[Stream[(SearchTerm, Blocked)]] = {

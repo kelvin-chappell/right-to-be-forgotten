@@ -1,7 +1,5 @@
 package model
 
-import java.io.FileInputStream
-
 import scala.io.Source
 
 object NameExtractor {
@@ -10,8 +8,8 @@ object NameExtractor {
 
   val common = Set("A", "As", "The")
 
-  lazy val firstNames = Source.fromFile("conf/firstNames.csv").getLines.toSeq.tail.toSet
-  lazy val lastNames = Source.fromFile("conf/lastNames.csv").getLines.toSeq.tail.toSet
+  lazy val firstNames = Source.fromURL(getClass.getResource("/firstNames.csv")).getLines.toSeq.tail.toSet
+  lazy val lastNames = Source.fromURL(getClass.getResource("/lastNames.csv")).getLines.toSeq.tail.toSet
 
   def apply(body: String): Seq[String] = {
 
